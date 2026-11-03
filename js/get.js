@@ -9,31 +9,26 @@ const apiUrl = "https://api-ds.codeverse.dev.br/api/atletas";
 
 async function buscarAtletas() {
 
-  //Mostra uma msg.
   resposta.textContent="Carregando atletas..."
   
   try {
-    //Fazer o get
     const retorno = await fetch(apiUrl, {
       method: "GET",
       headers: {"x-api-key" : apiKey},
     });
     
-    //Verificar se não deu certo
     if(!retorno.ok){
       throw new Error("Não foi possível carregar os atletas.");
     }
 
-    // Converter o resultado para JSON, pois será um objeto.
     const resultado = await retorno.json();
 
-    //Percorrer todos os atletas que esta dentro de resultado.
+
     for (const atleta of resultado.data){
-      
-      //fazer uma copia do modelo que criamos no html
+
       const card = modelo.content.cloneNode(true);
 
-      //preecher cada item desse card
+
 
       card.querySelector(".nome").textContent = atleta.nome;
       card.querySelector(".esporte").textContent = atleta.esporte;
@@ -53,8 +48,6 @@ async function buscarAtletas() {
         imagem.remove();
       }
 
-      // adiciona o card preenchido na tela
-
       lista.appendChild(card);
       resposta.textContent = "";
 
@@ -66,6 +59,5 @@ async function buscarAtletas() {
   }
 }
 
-// Executar no arquivo
 
 buscarAtletas();
